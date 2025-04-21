@@ -1,0 +1,16 @@
+services:
+  ovpn_proxy:
+    container_name: ovpn-proxy
+    build: .
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    volumes:
+      - ./data/ovpn:/data/ovpn
+    environment:
+      # - OVPN_CREDENTIALS=/data/ovpn/credentials
+      - INIT_TIMEOUT=8
+    ports:
+      - 8888:8888
+    restart: unless-stopped
