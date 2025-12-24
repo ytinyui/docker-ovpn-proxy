@@ -26,9 +26,10 @@ i=0
 while [ "${i}" -lt "${INIT_TIMEOUT:=8}" ]; do
   if ip a | grep tun0 >/dev/null; then
     ip=$(ip a | grep tun0 | tail -n 1 | awk '{ print $2 }' | sed -E 's/\/[0-9]+$//')
-    echo "Bind ${ip}" >>/app/tinyproxy.conf
+    cp /app/tinyproxy.conf /app/tinyproxy.conf.1
+    echo "Bind ${ip}" >>/app/tinyproxy.conf.1
     log "INFO:" "Starting tinyproxy"
-    tinyproxy -d -c /app/tinyproxy.conf
+    tinyproxy -d -c /app/tinyproxy.conf.1
   fi
   sleep 1
   i=$((i + 1))
