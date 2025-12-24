@@ -14,3 +14,8 @@ services:
     ports:
       - 8888:8888
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "ping", "-c", "1", "1.1.1.1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
