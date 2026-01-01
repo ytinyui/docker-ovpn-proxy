@@ -18,7 +18,7 @@ username
 password
 ```
 
-Uncomment the line with `OVPN_CREDENTIALS=/data/ovpn/credentials`.
+In `compose.yaml`, uncomment the line with `OVPN_CREDENTIALS=/data/ovpn/credentials`.
 
 ## Usage
 
