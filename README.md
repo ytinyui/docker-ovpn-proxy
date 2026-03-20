@@ -27,7 +27,10 @@ In `compose.yaml`, uncomment the line with `OVPN_CREDENTIALS=/data/ovpn/credenti
 Run the following command:
 
 ```sh
+# Linux
 docker compose up -d
+# MacOS
+docker compose --profile mac up -d
 ```
 
 ### Testing

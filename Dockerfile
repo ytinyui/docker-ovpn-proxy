@@ -2,7 +2,7 @@ FROM alpine:edge
 
 EXPOSE 8888
 
-RUN apk add tinyproxy openvpn
+RUN apk add --no-cache tinyproxy openvpn
 
 COPY app /app
 

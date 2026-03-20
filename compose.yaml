@@ -1,6 +1,5 @@
 services:
-  ovpn_proxy:
-    container_name: ovpn-proxy
+  proxy:
     build: .
     cap_add:
       - NET_ADMIN
@@ -9,13 +8,28 @@ services:
     volumes:
       - ./data/ovpn:/data/ovpn
     environment:
-      # - OVPN_CREDENTIALS=/data/ovpn/credentials
+      - OVPN_CREDENTIALS=/data/ovpn/credentials
       - INIT_TIMEOUT=8
     ports:
       - 8888:8888
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "ping", "-c", "1", "1.1.1.1"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+      test: ["CMD", "nc", "-z", "8888"]
+      timeout: 10s
+      start_period: 5s
+  proxy-mac:
+    build: .
+    privileged: true
+    volumes:
+      - ./data/ovpn:/data/ovpn
+    environment:
+      - OVPN_CREDENTIALS=/data/ovpn/credentials
+      - INIT_TIMEOUT=8
+    ports:
+      - 8888:8888
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nc", "-z", "8888"]
+      timeout: 10s
+      start_period: 5s
+    profiles: [mac]
