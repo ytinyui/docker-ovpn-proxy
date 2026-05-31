@@ -1,13 +1,14 @@
 # docker-ovpn-proxy
 
 An HTTP proxy that goes through OpenVPN, inside a Docker container.
+All traffic is forced through the VPN tunnel via an iptables-based kill switch.
 
 ## Setup
 
 ### OpenVPN Config
 
-Place one OpenVPN config file in the directory `data/ovpn/`.
-If there are multiple config files, one will be chosen randomly.
+Place one or more `.ovpn` config files in the directory `data/ovpn/`.
+If there are multiple configs, one will be chosen randomly at startup.
 
 ### Credentials (optional)
 

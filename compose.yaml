@@ -8,28 +8,62 @@ services:
     volumes:
       - ./data/ovpn:/data/ovpn
     environment:
-      - OVPN_CREDENTIALS=/data/ovpn/credentials
+      # - OVPN_CREDENTIALS=/data/ovpn/credentials
       - INIT_TIMEOUT=8
     ports:
       - 8888:8888
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "8888"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "--connect-timeout",
+          "5",
+          "--max-time",
+          "10",
+          "--proxy",
+          "localhost:8888",
+          "http://connectivitycheck.gstatic.com/generate_204",
+        ]
       timeout: 10s
-      start_period: 5s
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: "1.0"
   proxy-mac:
     build: .
     privileged: true
     volumes:
       - ./data/ovpn:/data/ovpn
     environment:
-      - OVPN_CREDENTIALS=/data/ovpn/credentials
+      # - OVPN_CREDENTIALS=/data/ovpn/credentials
       - INIT_TIMEOUT=8
     ports:
       - 8888:8888
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "8888"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "--connect-timeout",
+          "5",
+          "--max-time",
+          "10",
+          "--proxy",
+          "localhost:8888",
+          "http://connectivitycheck.gstatic.com/generate_204",
+        ]
       timeout: 10s
-      start_period: 5s
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: "1.0"
     profiles: [mac]
