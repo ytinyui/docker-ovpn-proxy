@@ -81,11 +81,6 @@ fi
 
 log "INFO:" "VPN connected – starting TinyProxy"
 
-# Block all traffic not going through tun0 (prevents leaks if OpenVPN redirect-gateway fails)
-if command -v iptables >/dev/null 2>&1; then
-  iptables -I OUTPUT ! -o tun0 -j DROP 2>/dev/null || true
-fi
-
 # Prepare TinyProxy config with dynamic bind address
 cp /app/tinyproxy.conf /tmp/tinyproxy.conf.1
 printf "\nBind %s\n" "$VPN_IP" >>/tmp/tinyproxy.conf.1

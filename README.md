@@ -1,7 +1,6 @@
 # docker-ovpn-proxy
 
 An HTTP proxy that goes through OpenVPN, inside a Docker container.
-All traffic is forced through the VPN tunnel via an iptables-based kill switch.
 
 ## Setup
 
